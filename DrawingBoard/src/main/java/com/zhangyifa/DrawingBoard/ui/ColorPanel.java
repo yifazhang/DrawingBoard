@@ -44,6 +44,8 @@ public class ColorPanel extends Panel implements ActionListener{
 	private void creatButton(Color color) {
 		JButton button = new JButton();
 		button.setBackground(color);
+		button.setOpaque(true);
+        button.setBorderPainted(false);
 		button.addActionListener(this);
 		add(button);
 	}
