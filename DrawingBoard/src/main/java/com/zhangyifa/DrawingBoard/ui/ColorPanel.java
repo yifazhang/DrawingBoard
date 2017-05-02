@@ -11,9 +11,12 @@ public class ColorPanel extends Panel implements ActionListener{
 
 	private ArrayList<Color> listColor = new ArrayList<Color>();
 	
-	
-	public ColorPanel() {
+	private FunctionPanel functionPanel;
+
+	public ColorPanel(FunctionPanel functionPanel) {
 		super();
+		this.functionPanel = functionPanel;
+		
 		setLayout(new GridLayout(4, 3));
 		initColor();
 		
@@ -52,7 +55,8 @@ public class ColorPanel extends Panel implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		functionPanel.setChanged();
+		functionPanel.notifyObservers(e.getSource());
 	}
 	
 	

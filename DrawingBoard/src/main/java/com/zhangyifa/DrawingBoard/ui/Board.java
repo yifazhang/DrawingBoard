@@ -31,6 +31,7 @@ public class Board extends JFrame {
 		functionPanel.setBounds(300, 0, 100, 300);
 		functionPanel.setLayout(null);
 		functionPanel.setUI();
+		functionPanel.addObserver(shapesPanel);
 		conPane.add(functionPanel);
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
