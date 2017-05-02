@@ -8,8 +8,10 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.zhangyifa.DrawingBoard.meta.DrawInfo;
 import com.zhangyifa.DrawingBoard.meta.Line;
 import com.zhangyifa.DrawingBoard.meta.Shape;
 import com.zhangyifa.DrawingBoard.service.Observer;
@@ -18,7 +20,17 @@ import com.zhangyifa.DrawingBoard.service.CustomMouseListener;
 public class ShapesPanel extends JPanel implements Observer{
 
 	private ArrayList<Shape> listShape = new ArrayList<Shape>();
+	CustomMouseListener listener;
+	private DrawInfo drawInfo = new DrawInfo();
 	
+	public DrawInfo getDrawInfo() {
+		return drawInfo;
+	}
+
+	public void setDrawInfo(DrawInfo drawInfo) {
+		this.drawInfo = drawInfo;
+	}
+
 	public ArrayList<Shape> getListShape() {
 		return listShape;
 	}
@@ -40,12 +52,6 @@ public class ShapesPanel extends JPanel implements Observer{
 	public ShapesPanel() {
 		super();
 		setBackground(Color.GREEN);
-		listShape.add(new Line(0,205,400,205));
-		
-//		CustomMouseListener listener = new CustomMouseListener(this);
-//		addMouseMotionListener(listener);
-//		addMouseListener(listener);
-        
 	}
 
 
@@ -63,13 +69,36 @@ public class ShapesPanel extends JPanel implements Observer{
 		if (arg instanceof JButton) {
 			JButton button = (JButton)arg;
 			String text = button.getText();
-			Color color = button.getBackground();
-			if (text.isEmpty() || text == null) {
+			Color color = Color.BLACK;
+			if(text.isEmpty()) {
+				color = button.getBackground();
+			}
+			if (color != null) {
+				drawInfo.setColor(color);
 				System.out.println(color);
-			} else {
+			} 
+			if(!text.isEmpty() && text != null) {
+				drawInfo.setShape(text);
 				System.out.println(text);
-			}		
+				
+				if(text.equals("文本")) {
+					String s = JOptionPane.showInputDialog("请输入:");
+					System.out.println("输入的内容是：" + s);
+					drawInfo.setText(s);
+					listenerAtion();
+				}else{
+					listenerAtion();
+				}
+			}
+			System.out.println(drawInfo);
+			
 		}
 	}
 	
+	private void listenerAtion() {
+		removeMouseListener(listener);
+		listener = new CustomMouseListener(this, getGraphics());
+		addMouseMotionListener(listener);
+		addMouseListener(listener);
+	}
 }

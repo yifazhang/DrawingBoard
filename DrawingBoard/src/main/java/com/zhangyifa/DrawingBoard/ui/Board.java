@@ -1,14 +1,8 @@
 package com.zhangyifa.DrawingBoard.ui;
 
-import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Dimension;
 
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 public class Board extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -35,6 +29,7 @@ public class Board extends JFrame {
 		conPane.add(functionPanel);
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
 	}
 
 	public void draw() {
