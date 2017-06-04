@@ -1,43 +1,44 @@
 package com.zhangyifa.DrawingBoard.ui;
 
-import java.awt.Container;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import com.zhangyifa.DrawingBoard.meta.Shape;
 public class Board extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private int width = 800;
+	private int height = 500;
+	ShapesPanel shapesPanel;
+	private ArrayList<Shape> listShape = new ArrayList<Shape>();
 	
-	private int width = 400;
-	private int height = 322;
-	private ShapesPanel shapesPanel;
-	private FunctionPanel functionPanel;
-	
-	public Board() {
-		super();
-		Container conPane = getContentPane();
-		conPane.setLayout(null);
-		shapesPanel = new ShapesPanel();
-		shapesPanel.setBounds(0, 0, 300, 300);
-		shapesPanel.setLayout(null);
-		conPane.add(shapesPanel);
-		
-		functionPanel = new FunctionPanel();
-		functionPanel.setBounds(300, 0, 100, 300);
-		functionPanel.setLayout(null);
-		functionPanel.setUI();
-		functionPanel.addObserver(shapesPanel);
-		conPane.add(functionPanel);
-		
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setLocationRelativeTo(null);
+
+	public void add(Shape s)
+	{
+		listShape.add(s);
 	}
 
-	public void draw() {
-		
-		setSize(width, height);
-		setTitle("DrawingBoard");
-		setResizable(false);
-		setVisible(true);
+	public Board()
+	{
+		shapesPanel = new ShapesPanel();
+		shapesPanel.setBackground(Color.WHITE);
+		shapesPanel.setPreferredSize(new Dimension(width, height));
+		shapesPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		add(shapesPanel);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
+	public void draw()
+	{
+		setLocationRelativeTo(null);
+		setSize(width, height);
+		setTitle("DrawingBoard");
+		FlowLayout f1 = new FlowLayout(FlowLayout.LEFT);
+		setLayout(f1);
+		setVisible(true);
+		shapesPanel.setListener();
+	}
 }
